@@ -1,6 +1,6 @@
 package implementation_interfaces;
 
-public interface Observer {
+public interface Observer<T> {
 
-	public void update(Subject subject); 
+	public Void update(Subject subject); 
 }
