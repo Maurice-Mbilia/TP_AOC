@@ -49,6 +49,9 @@ public class CapteurImpl implements Capteur  {
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
+		Logger.getGlobal().severe("Je vous informe que je suis le capteur  j'ai effectué un tick et je delegue le travail à la strategie");
+		this.strategy.valueWritten();
+
 		
 	}
 
@@ -97,12 +100,15 @@ public class CapteurImpl implements Capteur  {
 	@Override
 	public void lock() {
 		// TODO Auto-generated method stub
+		lock = true ;
+		Logger.getGlobal().severe("Je vous informe que je suis le capteur et je suis bloqué");
+
 		
 	}
 
 	public List<Observer> getObservers() {
 		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableList(observers);
 	}
 
 }

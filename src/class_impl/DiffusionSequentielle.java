@@ -12,7 +12,7 @@ import implementation_interfaces.Observer;
 public class DiffusionSequentielle implements AlgoDiffusion { 
 	
 	private Integer tampon; 
-	private Integer value; 
+	private Integer value = 0; 
 	private CapteurImpl capteur;
 	Set<Observer> semaphores; // je dois le changer en Observers c'est beaucoup mieux
 	List<Observer> canals;
@@ -28,6 +28,21 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		this.capteur = capteur;
 		this.canals = this.capteur.getObservers();		
 	}
+	
+	
+	@Override
+	public void valueWritten() {
+		// TODO Auto-generated method stub
+		Logger.getGlobal().log(Level.OFF, "Je vous informe que je suis chez la stratégie séquentielle");
+		value ++;
+		if(semaphores.isEmpty()) {
+			tampon = value; 
+			Logger.getGlobal().log(Level.OFF, "Voici la valeur a diffuser aux afficheurs " + tampon);
+			this.notifyAllObeservers();
+		}
+		
+		
+	}
 
 	@Override
 	public Integer valueRead(Observer observer) {
@@ -36,34 +51,24 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		Logger.getGlobal().log(Level.OFF, "My size");
 		if(this.canals.size() == this.semaphores.size()) {
 		semaphores.clear();
-		Logger.getGlobal().log(Level.OFF, "Semaphore clear"+semaphores.size());
+		Logger.getGlobal().log(Level.OFF, "Semaphore clear "+semaphores.size());
 		}
 		return tampon;
 	}
 
-	@Override
-	public void valueWritten() {
-		// TODO Auto-generated method stub
-		Logger.getGlobal().log(Level.OFF, "Je vous informe que je suis chez la stratégie séquentielle");
-		value ++;
-		if(semaphores.isEmpty()) {
-			tampon = value; 
-			Logger.getGlobal().log(Level.OFF, "Voici la valeur a diffuser aux afficheurs" + tampon);
-			this.notifyAllObeservers();
-		}
-		
-		
-	}
+	
 
-	private void notifyAllObeservers() {
+	public void notifyAllObeservers() {
 		// TODO Auto-generated method stub
-		Observer observer = null; 
 		
-		for(int i = 0; i < canals.size(); i++) { // ???? size of capteur ???
+		int i = 0 ;
+		for (Observer observer : canals) {
+			i++ ;
 			observer.update(this.capteur);
 			Logger.getGlobal().log(Level.OFF, "Je vous informe que le canal"+ i +" à été notifié");
-		}
-		
 	}
 
 }
+}
+
+	
