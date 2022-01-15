@@ -17,19 +17,19 @@ import implementation_interfaces.SubjectAsync;
 
 public class Canal implements ObserverAsync, SubjectAsync  {
 	
-	private String nameCanal; 
+	private String canal_name; 
 	private Capteur capteur;
 	private final static int DelayMin = 1000;
 	private final static int DelayMax = 3000; 
-	private final static int POOL_SIZE = 5; 
-	private final ScheduledExecutorService es;
+	private final static int POOL_NUMBER = 5; 
+	private final ScheduledExecutorService executorservice;
 	List<Observer<SubjectAsync>> afficheurObservers;
 	
 	public Canal(String nameCanal, Capteur capteur) {
 		
 		this.capteur = capteur;
-		this.nameCanal = nameCanal; 
-		es = Executors.newScheduledThreadPool(POOL_SIZE);
+		this.canal_name = nameCanal; 
+		executorservice = Executors.newScheduledThreadPool(POOL_NUMBER);
 		afficheurObservers = new ArrayList<>();
 		capteur.attach(this);
 				
@@ -48,7 +48,7 @@ public class Canal implements ObserverAsync, SubjectAsync  {
 		int randomTime = getRandomNumber();
 		Observer observerCanal = this;
 		
-		return es.schedule(new Callable<Integer>(){
+		return executorservice.schedule(new Callable<Integer>(){
 		
 			@Override
 			public Integer call() {
@@ -76,17 +76,25 @@ public class Canal implements ObserverAsync, SubjectAsync  {
 	}
 
 	@Override
-	public Future<Void> update(Subject subject) {
+	public Future<Void> update(Subject subject) { // classe avec un nom plutot que le lambda expression ou une classe anonyme
 		// TODO Auto-generated method stub
+		
+		/*
+		 * return (Future<Void>) executorservice.submit(() -> {
+		 * afficheurObservers.update(subject); });
+		 * 
+		 * }
+		 */
+		
 		int randomTime = getRandomNumber(); 
 		SubjectAsync canal = this; 
-		return es.schedule(new Callable<Void>() {
+		return executorservice.schedule(new Callable<Void>() {
 			
 			@Override
 			public Void call() {
-				for(Observer<SubjectAsync> afficheur : afficheurObservers) {
-					Logger.getGlobal().warning(nameCanal+ "-- Je vous informe que l afficheur" + afficheur + "à etait notifier");
-					afficheur.update(canal);
+				for(Observer<SubjectAsync> print : afficheurObservers) {
+					Logger.getGlobal().info(canal_name + " " + "Je vous informe que l'afficheur" + " " +  " " + print + " " + "est notifié");
+					print.update(canal); 
 				
 				}
 				

@@ -4,10 +4,10 @@ import class_impl.CapteurImpl;
 
 public interface AlgoDiffusion {
 	
-		public void configure(CapteurImpl capteur);
+		public void configure(CapteurImpl captor);
 
-		public Integer valueRead(Observer observer);
+		public Integer execute (Observer observer);
 
-		void valueWritten();
+		public void valueWritten();
 
 }

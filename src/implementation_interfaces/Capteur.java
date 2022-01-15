@@ -1,5 +1,9 @@
 package implementation_interfaces;
 
+/**
+ * @author etops mbilia
+ *
+ */
 public interface Capteur extends Subject<Integer>{
 	
 	public void tick(); 
@@ -12,11 +16,8 @@ public interface Capteur extends Subject<Integer>{
 	
 	public void lock(); 
 	
-	public boolean isLock(); // il n'y en a pas sur le diagramme proposé en cours
+	// il n'y en a pas sur le diagramme proposé en cours
+	public boolean isLock();
 
 	void unlock();
-
-	void loch();
-	
-
 }

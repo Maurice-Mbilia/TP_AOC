@@ -26,8 +26,7 @@ public class CapteurImpl implements Capteur  {
 		case DiffusionSequentielle : this.setStrategy(new DiffusionSequentielle()); break;
 		case DiffusionEpoque : this.setStrategy(new DiffusionEpoque()); break;
 		}
-		
-		
+				
 	}
 	
 	public void setStrategy(AlgoDiffusion strategy) {
@@ -49,7 +48,7 @@ public class CapteurImpl implements Capteur  {
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		Logger.getGlobal().severe("Je vous informe que je suis le capteur  j'ai effectué un tick et je delegue le travail à la strategie");
+		Logger.getGlobal().severe("Le capteur fait Tick");
 		this.strategy.valueWritten();
 
 		
@@ -73,14 +72,7 @@ public class CapteurImpl implements Capteur  {
 	@Override
 	public Integer getValue(Observer observer) {
 		// TODO Auto-generated method stub
-		return this.strategy.valueRead(observer);
-	}
-
-	@Override
-	public void loch() {
-		// TODO Auto-generated method stub
-		lock = true;
-		Logger.getGlobal().severe("Je suis bloqué");		
+		return this.strategy.execute(observer);
 	}
 	
 	@Override
