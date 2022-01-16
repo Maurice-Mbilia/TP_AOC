@@ -48,7 +48,7 @@ public class CapteurImpl implements Capteur  {
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		Logger.getGlobal().severe("Le capteur fait Tick");
+		Logger.getGlobal().info("Le capteur fait Tick");
 		this.strategy.valueWritten();
 
 		
@@ -62,27 +62,24 @@ public class CapteurImpl implements Capteur  {
 	}
 
 	@Override
-	public void detach(Observer observer) {
-		// TODO Auto-generated method stub
-		this.observers.remove(observer);
-		
-		
-	}
-
-	@Override
 	public Integer getValue(Observer observer) {
 		// TODO Auto-generated method stub
 		return this.strategy.execute(observer);
 	}
-	
+
+	@Override
+	public void detach(Observer observer) {
+		// TODO Auto-generated method stub
+		this.observers.remove(observer);
+				
+	}
+
 	@Override
 	public void unlock() {
 		lock = false ;
-		Logger.getGlobal().severe("Je vous informe que je suis le capteur et je suis débloqué");
+		Logger.getGlobal().info(" Je ne suis pas du tout bloqué ");
 	}
 	
-
-
 	@Override
 	public boolean isLock() {
 		// TODO Auto-generated method stub
@@ -93,8 +90,7 @@ public class CapteurImpl implements Capteur  {
 	public void lock() {
 		// TODO Auto-generated method stub
 		lock = true ;
-		Logger.getGlobal().severe("Je vous informe que je suis le capteur et je suis bloqué");
-
+		Logger.getGlobal().info("Mince ! je suis bloqué ");
 		
 	}
 

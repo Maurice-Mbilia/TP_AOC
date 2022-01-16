@@ -65,7 +65,7 @@ class DiffusionAtomiqueTest {
 				scheduledExecutorService.shutdown();
 			}
 		}
-		Logger.getGlobal().severe("simulator is terminate " + scheduledExecutorService.isTerminated());
+		Logger.getGlobal().info("simulator is terminate ");
 		
 		Set<Integer> results1 = afficheur_1.getResults(); 
 		afficheur_1.writeInFile("ATOMIQUE");
@@ -84,11 +84,11 @@ class DiffusionAtomiqueTest {
 		
 		assertTrue(results1.size()==results2.size() && results2.size()==results3.size() && results3.size()==results4.size() && results3.size()==results4.size(), "Les sous suites sont tous egaux");
 		
-		for(int i = 1; i < results1.size(); i++) {
+		for(int i = 0; i < results1.size(); i++) {
 			
 			assertTrue(results1.toArray()[i] == results2.toArray()[i] && results1.toArray()[i] == results3.toArray()[i] && results1.toArray()[i] == results4.toArray()[i] && results1.toArray()[i] == results5.toArray()[i]);
 			
-			assertFalse(results1.toArray()[i] != results2.toArray()[i]);
+			assertTrue(results1.toArray()[i] == results2.toArray()[i]);
 			
 		}
 			

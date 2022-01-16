@@ -19,7 +19,7 @@ import implementation_interfaces.AlgoDiffusion;
 
 class DiffusionEpoqueTest {
 	
-	public static CapteurImpl capteur = new CapteurImpl("capteur_A", Strategy.DiffusionAtomique);
+	public static CapteurImpl capteur = new CapteurImpl("capteur_A", Strategy.DiffusionEpoque);
 	
 	public static Canal canal_1 = new Canal("canal_A", capteur); 
 	public static Afficheur afficheur_1 = new Afficheur("afficheur_A", canal_1);
@@ -33,14 +33,17 @@ class DiffusionEpoqueTest {
 	public static Canal canal_4 = new Canal("canal_D", capteur); 
 	public static Afficheur afficheur_4 = new Afficheur("afficheur_D", canal_4);
 	
+	public static Canal canal_5 = new Canal("canal_E", capteur); 
+	public static Afficheur afficheur_5 = new Afficheur("afficheur_E", canal_5);
+	
 	
 	@Test
 	void valueWritten() {
 		
 		capteur.tick();
 		AlgoDiffusion strategy = capteur.getStrategy(); 
-		Integer valueAfterTick = strategy.valueRead(canal_1);
-		assertNotNull(valueAfterTick, "Jamais null ma valeur");
+		Integer valueAfterTick = strategy.execute(canal_1);
+		assertNotNull(valueAfterTick);
 	}
 	@Test
 	void lock() {
@@ -49,47 +52,45 @@ class DiffusionEpoqueTest {
 	
 	@Test
 	void executeTest() {
-		ScheduledExecutorService simulator = Executors.newSingleThreadScheduledExecutor();
+		ScheduledExecutorService scheduledexecutor = Executors.newScheduledThreadPool(3);
 		try { 
-			simulator.scheduleAtFixedRate(capteur::tick, 1, 2	, TimeUnit.MINUTES);
-			simulator.awaitTermination(2, TimeUnit.MINUTES); 
+			scheduledexecutor .scheduleAtFixedRate(capteur::tick, 2, 5	, TimeUnit.SECONDS);
+			scheduledexecutor .awaitTermination(180, TimeUnit.SECONDS); 
 			
-		} catch (Exception e) {
-			Logger.getGlobal().severe("L'exécution du thread ne s'est pas bien passée " + e.getMessage());
+		} catch (Exception exception) {
+			Logger.getGlobal().info(" L'exécution du thread ne s'est pas bien passée ... mince");
 		} finally {
-			if (simulator != null) {
-				simulator.shutdown();
+			if (scheduledexecutor  != null) {
+				scheduledexecutor .shutdown();
 			}
 		}
-		Logger.getGlobal().severe("simulator is terminate " + simulator.isTerminated());
+		Logger.getGlobal().info(" Fin de test ");
 		
 		Set<Integer> results1 = afficheur_1.getResults(); 
 		afficheur_1.writeInFile("EPOQUE");
 		assertFalse(results1.isEmpty());
 		
 		Set<Integer> results2 = afficheur_2.getResults(); 
-		afficheur_1.writeInFile("EPOQUE");
+		afficheur_2.writeInFile("EPOQUE");
 		assertFalse(results2.isEmpty());
 		
 		Set<Integer> results3 = afficheur_3.getResults(); 
-		afficheur_1.writeInFile("EPOQUE");
+		afficheur_3.writeInFile("EPOQUE");
 		assertFalse(results3.isEmpty());
 		
 		Set<Integer> results4 = afficheur_4.getResults(); 
-		afficheur_1.writeInFile("EPOQUE");
+		afficheur_4.writeInFile("EPOQUE");
 		assertFalse(results4.isEmpty());
 		
-		Logger.getGlobal().severe("-------- resultat de " + afficheur_1.toString());
-        Logger.getGlobal().info("-------- resultat de " + afficheur_2.toString());
-        Logger.getGlobal().warning("-------- resultat de " + afficheur_3.toString());
-        Logger.getGlobal().log(Level.OFF, "-------- resultat de " + afficheur_4.toString());
-
-
-	
-	
-	
+		Set<Integer> results5 = afficheur_5.getResults(); 
+		afficheur_5.writeInFile("EPOQUE");
+		assertFalse(results5.isEmpty());
+		
+		Logger.getGlobal().info("	resultat de " + " " + afficheur_1.toString());
+        Logger.getGlobal().info("	resultat de " + " " + afficheur_2.toString());
+        Logger.getGlobal().info("	resultat de " + " " + afficheur_3.toString());
+        Logger.getGlobal().info("	resultat de " + " " + afficheur_4.toString());
+        Logger.getGlobal().info("	resultat de " + " " + afficheur_5.toString());	
 	}
 
 }
-
-

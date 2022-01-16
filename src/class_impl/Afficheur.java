@@ -52,7 +52,7 @@ public class Afficheur implements ObserverDeCapteur {
 
 	public void writeInFile(String strategy) {
 		try {
-			String pathFile = nameAfficheur + "_" + strategy + ".txt";
+			String pathFile = nameAfficheur + " " + strategy + ".txt";
 			FileWriter fileWriter = new FileWriter(pathFile);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -60,7 +60,7 @@ public class Afficheur implements ObserverDeCapteur {
 				Logger.getGlobal().info(" " + result);
 				bufferedWriter.write(result.toString() + " ");
 			}
-			// Une la lecture de buffer fini, il faut fermer la connexion
+			// Une fois que la lecture de buffer finie, il faut fermer la connexion
 			bufferedWriter.close();
 			fileWriter.close();
 		} catch (IOException e) {

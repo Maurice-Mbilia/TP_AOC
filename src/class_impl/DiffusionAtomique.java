@@ -14,11 +14,11 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 	
 	private Integer value = 0;
 	private CapteurImpl capteur;
-	Set<Observer> semaphores;
-	List<Observer> canaux;
+	Set<Observer> observers;
+	List<Observer> canals;
 	
 	public DiffusionAtomique() {
-		semaphores = new HashSet<>();
+		observers = new HashSet<>();
 	}
 
 	
@@ -26,7 +26,7 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 	public void configure(CapteurImpl capteur) {
 		// TODO Auto-generated method stub
 		this.capteur = capteur;
-		this.canaux = this.capteur.getObservers();
+		this.canals = this.capteur.getObservers();
 		
 	}
 	
@@ -38,7 +38,7 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 	            value++;
 	            Logger.getGlobal().info(" la valeur de diffusion est : " + value);
 	            this.capteur.lock();
-	            Logger.getGlobal().info("Le capteur est bloqué pour l'instant ");
+	            Logger.getGlobal().info(" Le capteur est bloqué pour l'instant ");
 	            this.notifyAllObeservers();
 	        }
 	
@@ -58,12 +58,12 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 	public Integer execute(Observer observerCanal) {
 		// TODO Auto-generated method stub
 		Objects.requireNonNull(observerCanal, " le canal ne doit pas être nul");
-		this.semaphores.add(observerCanal);
+		this.observers.add(observerCanal);
 		
-		if(this.canaux.size() == this.semaphores.size()) {
+		if(this.canals.size() == this.observers.size()) {
 			this.capteur.unlock();
-			semaphores.clear();
-			Logger.getGlobal().log(Level.OFF, "	les valeurs qui s'affichent sont : ");
+			observers.clear();
+			Logger.getGlobal().info(" les valeurs qui s'affichent sont : ");
 			
 		}
 		
@@ -75,11 +75,11 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 		// TODO Auto-generated method stub
 		
 		int i = 0;  
-		for(Observer observer: canaux) {
+		for(Observer observer: canals) {
 			
 			i ++;
 			observer.update(this.capteur);
-			Logger.getGlobal().log(Level.OFF, "Je vous informe que le canal " + i + "");
+			Logger.getGlobal().info(" Je vous informe que le canal " + i + " sont notifiés ");
 		}
 		
 	}

@@ -37,6 +37,9 @@ public class DiffusionSequentielleTest {
 
 	public static Canal canal_4 = new Canal("canal_D", capteur); 
 	public static Afficheur afficheur_4 = new Afficheur("afficheur_D", canal_4);
+	
+	public static Canal canal_5 = new Canal("canal_E", capteur); 
+	public static Afficheur afficheur_5 = new Afficheur("afficheur_E", canal_5);
 
 
 	@Test
@@ -45,7 +48,7 @@ public class DiffusionSequentielleTest {
 		int value = 1; 
 		capteur.tick();
 		AlgoDiffusion strategy = capteur.getStrategy();		
-		Integer valueAfterTick = strategy.valueRead(canal_1); 
+		Integer valueAfterTick = strategy.execute(canal_1); 
 		assertEquals(value, valueAfterTick);
 	}
 
@@ -57,18 +60,18 @@ public class DiffusionSequentielleTest {
 
 	@Test 
 	void executeTest() {
-		ScheduledExecutorService simulator = Executors.newSingleThreadScheduledExecutor();
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 		try {
-			simulator.scheduleAtFixedRate(capteur::tick, 1, 2, TimeUnit.MINUTES);
-			simulator.awaitTermination(1, TimeUnit.MINUTES);
+			executor.scheduleAtFixedRate(capteur::tick, 1, 5, TimeUnit.SECONDS);
+			executor.awaitTermination(60, TimeUnit.SECONDS);
 		}catch (Exception e){
-			Logger.getGlobal().severe("L'exécution du thread ne s'est pas bien passée " + e.getMessage());
+			Logger.getGlobal().info("L'exécution du thread ne s'est pas bien passée " + e.getMessage());
 		} finally {
-			if(simulator != null) {
-				simulator.shutdown();
+			if(executor != null) {
+				executor.shutdown();
 			}
 		}
-			Logger.getGlobal().severe("simulator is terminate" + simulator.isTerminated());
+			Logger.getGlobal().info("executor se termine " + executor.isTerminated());
 
 			Set<Integer> results1 = afficheur_1.getResults(); 
 			afficheur_1.writeInFile("_SEQUENTIELLE");
@@ -81,32 +84,28 @@ public class DiffusionSequentielleTest {
 
 			Set<Integer> results4 = afficheur_4.getResults(); 
 			afficheur_4.writeInFile("_SEQUENTIELLE");
+			
+			Set<Integer> results5 = afficheur_5.getResults(); 
+			afficheur_5.writeInFile("_SEQUENTIELLE");
 
-			assertTrue(results1.size() == results2.size()
-					&& results2.size() == results3.size()
-					&& results3.size() == results4.size()
-					, "Les sous suites sont tous egaux");
-
+			assertTrue(results1.size() == results2.size() && results2.size() == results3.size() && results3.size() == results4.size() && results4.size() == results5.size());
 
 			for (int i = 0; i < results1.size(); i++) {
-				assertTrue(results1.toArray()[i] == results2.toArray()[i]
-						&& results1.toArray()[i] == results3.toArray()[i]
-								&& results1.toArray()[i] == results4.toArray()[i]
-										, "Les sous suites sont tous egaux");
+				assertTrue(results1.toArray()[i] == results2.toArray()[i] && results1.toArray()[i] == results3.toArray()[i] && results1.toArray()[i] == results4.toArray()[i] && results1.toArray()[i] == results5.toArray()[i]);
 
-				assertTrue(results2.toArray()[i] == results3.toArray()[i]
-						&& results2.toArray()[i] == results4.toArray()[i]
-								, "Les sous suites sont tous egaux");
+				
+				assertTrue(results2.toArray()[i] == results3.toArray()[i] && results2.toArray()[i] == results4.toArray()[i]);
 
-				assertSame(results3.toArray()[i], results4.toArray()[i], "Les sous suites sont tous egaux");
+                assertSame(results3.toArray()[i], results4.toArray()[i], " Les valeurs sont égales ");
+
 
 			}
 
-			Logger.getGlobal().severe("-------- resultat de " + afficheur_1.toString());
-			Logger.getGlobal().info("-------- resultat de " + afficheur_2.toString());
-			Logger.getGlobal().warning("-------- resultat de " + afficheur_3.toString());
-			Logger.getGlobal().log(Level.OFF, "-------- resultat de " + afficheur_4.toString());
-
+			Logger.getGlobal().info("	resultat de " + " " + afficheur_1.toString());
+	        Logger.getGlobal().info("	resultat de " + " " + afficheur_2.toString());
+	        Logger.getGlobal().info("	resultat de " + " " + afficheur_3.toString());
+	        Logger.getGlobal().info("	resultat de " + " " + afficheur_4.toString());
+	        Logger.getGlobal().info("	resultat de " + " " + afficheur_5.toString());	
 		
 	}
 }

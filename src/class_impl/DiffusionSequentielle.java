@@ -14,12 +14,12 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 	private Integer tampon; 
 	private Integer value = 0; 
 	private CapteurImpl capteur;
-	Set<Observer> semaphores; // je dois le changer en Observers c'est beaucoup mieux
+	Set<Observer> observers; // je dois le changer en Observers c'est beaucoup mieux
 	List<Observer> canals;
-
+	
 	public DiffusionSequentielle() {
 
-		semaphores = new HashSet<>();
+		observers = new HashSet<>();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		// TODO Auto-generated method stub
 		Logger.getGlobal().info( "	Pas de confusion je suis une stratégie séquentielle ");
 		value ++;
-		if(semaphores.isEmpty()) {
+		if(observers.isEmpty()) {
 			tampon = value; 
 			Logger.getGlobal().info( "Voici la valeur a diffuser aux afficheurs " + tampon);
 			this.notifyAllObeservers();
@@ -50,11 +50,11 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 
 
 		// TODO Auto-generated method stub
-		this.semaphores.add(observer);
+		this.observers.add(observer);
 		Logger.getGlobal().info(" Ma taille est : ");
-		if(this.canals.size() == this.semaphores.size()) {
-			semaphores.clear();
-			Logger.getGlobal().log(Level.OFF, "Semaphore clear "+semaphores.size());
+		if(this.canals.size() == this.observers.size()) {
+			observers.clear();
+			Logger.getGlobal().info(" Des obersvers sont effacés " + observers.size());
 		}
 		return tampon;
 	}
