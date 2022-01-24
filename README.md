@@ -49,6 +49,4 @@ Les algorithmes de diffusions
 Architecture du projet
 
 Le projet est conçu dans le respect de principe SOLID. Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. 
-La figure ci-dessous, laisse transparaître la configuration du projet. 
-
-………………………
+La figure ci-dessous, laisse transparaître la configuration du projet.
