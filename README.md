@@ -19,15 +19,38 @@ Le pattern active object, est un pattern qui dissocie l’exécution de la méth
 
 
 
-## Les Différents rôles de diagramme représentatif du pattern Active Objectif
+## Les rôles de diagramme représentatif du pattern Active Objectif
 
 Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagramme en trois parties, qui sont:
-    • la partie gauche : la partie gauche implémente le côté client, et il y a un thread qui s’en charge
-    • la partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler 
-    • la partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties 
+* la partie gauche : la partie gauche implémente le côté client, et il y a un thread qui s’en charge
+* la partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler 
+* la partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties 
 
 
+## Implémentation des différentes interfaces 
 
+Les interfaces sont : 
+
+* Capteur
+* Subject
+* ObserverAsync
+* SubjectAsync 
+* Afficheur
+* Strategy
+* SubjectAsync
+
+
+## Implémentation des classes concrètes 
+
+Les classes concrètes sont :
+
+* AlgoDiffusion
+* Canal
+* CapteurImpl
+* DiffusionAtomique
+* DiffisionSequentielle
+* DiffusionEpoque
+* Stratégy
 
 
 
@@ -41,17 +64,16 @@ Pour ce qui concerne les trois stratégies, nous avons implémenté la classe é
 
 
 
-## Récapitulatif de quelques méthodes de Javadoc
+![L'architecture du projet](diag_Archi.png)  
 
-Dans tableau ci-dessous (https://www.jmdoudoux.fr/java/dej/chap-executor.htm), nous avons repris quelques unes des méthodes de la classe Executors, auxquelles nous avons recouru. 
+
 
 
 
 
 ## Architecture du projet
 
-Le projet est conçu dans le respect de principe SOLID. Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. 
-La figure ci-dessous, laisse transparaître la configuration du projet.
+Le projet est conçu dans le respect de principe SOLID. Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
 
 
 
@@ -76,4 +98,10 @@ Dans la partie @Test, on exécute les tests
 * laisser le temps de simulation pendant que les threads s’exécutent
 * arrêter les  tick() avec le lock() et unlock, donc assurer la gestion des verrous
 * awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
+
+
+![L'architecture du projet](diag_seq.png)  
+
+
+
 
