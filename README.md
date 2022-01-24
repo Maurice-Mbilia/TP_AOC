@@ -14,7 +14,7 @@ Afin de réaliser cet objectif, nous allons donc recourir au pattern de concepti
 Le pattern active object, est un pattern qui dissocie l’exécution de la méthode invocation (MI) de la méthode pour les objets qui se trouvent chacun dans leur thread de contrôle respectif. Le diagramme du pattern active object comporte neuf rôles, comme nous pouvons le voir sur la figure ci-dessous. 
 
 
-![] (image/diagram.png )
+ ![L'architecture du projet](diagram.png)                   
 
 
 
