@@ -19,7 +19,7 @@ Le pattern active object, est un pattern qui dissocie l’exécution de la méth
 
 
 
-## Les Différents rôles du diagramme représentatif de Active Objectif
+## Les Différents rôles de diagramme représentatif du pattern Active Objectif
 
 Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagramme en trois parties, qui sont:
     • la partie gauche : la partie gauche implémente le côté client, et il y a un thread qui s’en charge
@@ -32,21 +32,48 @@ Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagra
 
 
 
-Principes 
+## Zoom sur les différentes fonctionnalités 
 
-Dans ce projet, nous allons évidemment respecter scrupuleusement un certain nombre de princes métiers, dont les deux principaux sont : 
+Dans la classe concrète CapteurImpl, getValue : avec et sans paramètres … il faut faire la différence 
 
-Les algorithmes de diffusions 
-    • SOLID
-
-
-    • ACID : les propriétés ACID (atomcité, cohérence, isolation et durabilité) sont un ensemble de propriétés qui garantissent qu'une transaction informatique est exécutée de façon fiable. (1)
-
-	(https://fr.wikipedia.org/wiki/Propri%C3%A9t%C3%A9s_ACID) (1)
+Canal joue le rôle de proxy pour le capteur, donc il fait se comporte comme un capteur. Par conséquent, il implémente les interfaces Subject et Capteur. 
+Pour ce qui concerne les trois stratégies, nous avons implémenté la classe énumérée Stratégie, dont les éléments sont : DiffusionAtomique, DiffusionSequentielle et DiffusionEpoque
 
 
 
-Architecture du projet
+## Récapitulatif de quelques méthodes de Javadoc
+
+Dans tableau ci-dessous (https://www.jmdoudoux.fr/java/dej/chap-executor.htm), nous avons repris quelques unes des méthodes de la classe Executors, auxquelles nous avons recouru. 
+
+
+
+
+## Architecture du projet
 
 Le projet est conçu dans le respect de principe SOLID. Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. 
 La figure ci-dessous, laisse transparaître la configuration du projet.
+
+
+
+
+
+## Package Test
+
+Parce qu’on ne doit pas utiliser la méthode main(), il est donc recommandé de faire des tests sous Junit 5. On va implémenter une classe TEST.
+
+Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion :
+
+* 1 capteur
+* canaux (canals)
+* affichicheurs (faire du câblage, donc de la connexion pour afficher les données)
+* scheduled ExecutorService (ES) pour faire l’injection de dépendance.
+
+Dans la partie @Test, on exécute les tests 
+
+* instanciation de stratégie 
+* injecter pour chaque cas de test une stratégie dans le capteur
+* faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur 
+* laisser le temps de simulation pendant que les threads s’exécutent
+* arrêter les  tick() avec le lock() et unlock, donc assurer la gestion des verrous
+* awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
+
