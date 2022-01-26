@@ -26,6 +26,45 @@ Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagra
 * la partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler 
 * la partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties 
 
+Il convient de noter que le pattern Active Object pour sa conception il fait appel à d'autres patterns, qui sont :
+* le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal
+* le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
+* le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions; 
+
+
+
+![Pattern strategy](strategy.png)  
+Figure 3 : Pattern Strategy
+
+
+
+## Architecture et Conception 
+
+Le projet est conçu dans le respect des principes SOLID, qui est est un acronyme mnémonique qui regroupe cinq principes de conception destinés à produire des architectures logicielles plus compréhensibles, flexibles et maintenables; notemment le "I", Inversion des dépendances (Dependency inversion principle), qui voudrait à ce que l'implémentation d'une classe concrète dépende des abstractions (des Interfaces).
+
+
+
+Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
+
+
+
+
+
+![L'architecture du projet](diag_Archi.png)  
+Figure 4 : La structure de projet
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Implémentation des différentes interfaces 
 
@@ -63,17 +102,16 @@ Canal joue le rôle de proxy pour le capteur, donc il fait se comporte comme un 
 Pour ce qui concerne les trois stratégies, nous avons implémenté la classe énumérée Stratégie, dont les éléments sont : DiffusionAtomique, DiffusionSequentielle et DiffusionEpoque
 
 
-
-![L'architecture du projet](diag_Archi.png)  
-
-
+![L'architecture du projet](diag_seq.png) 
+Figure 4 : diagramme de sequence 
 
 
 
 
-## Architecture du projet
 
-Le projet est conçu dans le respect de principe SOLID. Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
+
+
+
 
 
 
@@ -100,7 +138,7 @@ Dans la partie @Test, on exécute les tests
 * awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
 
 
-![L'architecture du projet](diag_seq.png)  
+ 
 
 
 
