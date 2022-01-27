@@ -1,8 +1,20 @@
+
+
+
+
 # TP_AOC
+
+### Auteurs : 
+
+- **MBILIA Maurice**
+- **BRAHMI Said**
+
+
+
 ## Objectif
 
 Ce projet a pour objectif principal de mettre en œuvre le concept d’invocation asynchrone d’opération. 
-La motivation c’est que, des plates formes que nous utilisons de nos jours font appel à la programmation parallèle (architecture multicœurs), hétérogènes (données  dans le cloud), réparties et dynamiques. 
+La motivation c’est que, des plateformes que nous utilisons de nos jours font appel à la programmation parallèle (architecture multicœur), hétérogènes (données  dans le cloud), réparties et dynamiques. 
 
 
 ## Contexte
@@ -11,7 +23,7 @@ Afin de réaliser cet objectif, nous allons donc recourir au pattern de concepti
 
 ## Le patron de conception : Active Object
 
-Le pattern active object, est un pattern qui dissocie l’exécution de la méthode invocation (MI) de la méthode pour les objets qui se trouvent chacun dans leur thread de contrôle respectif. Le diagramme du pattern active object comporte neuf rôles, comme nous pouvons le voir sur la figure ci-dessous. 
+Le pattern active object, est un pattern qui dissocie l’exécution de la méthode invocation (MI) de la méthode pour les objets qui se trouvent chacun dans leur thread de contrôle respectif. Le diagramme du pattern active object comporte neuf rôles, comme nous pouvons le voir sur la figure ci-dessous: 
 
 
  ![L'architecture du projet](diagram.png)                   
@@ -22,14 +34,14 @@ Le pattern active object, est un pattern qui dissocie l’exécution de la méth
 ## Les rôles de diagramme représentatif du pattern Active Objectif
 
 Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagramme en trois parties, qui sont:
-* la partie gauche : la partie gauche implémente le côté client, et il y a un thread qui s’en charge
-* la partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler 
-* la partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties 
+* La partie gauche : la partie gauche implémente le côté client, et il y a un thread qui s’en charge.
+* La partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler.
+* La partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties. 
 
 Il convient de noter que le pattern Active Object pour sa conception il fait appel à d'autres patterns, qui sont :
-* le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal
-* le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
-* le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions; 
+* Le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal.
+* Le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
+* Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. 
 
 
 
