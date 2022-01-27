@@ -11,7 +11,7 @@ import implementation_interfaces.Observer;
 
 public class DiffusionSequentielle implements AlgoDiffusion { 
 
-	private Integer tampon; 
+	private Integer tmp; 
 	private Integer value = 0; 
 	private CapteurImpl capteur;
 	Set<Observer> observers; // je dois le changer en Observers c'est beaucoup mieux
@@ -37,8 +37,8 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		Logger.getGlobal().info( "	Pas de confusion je suis une stratégie séquentielle ");
 		value ++;
 		if(observers.isEmpty()) {
-			tampon = value; 
-			Logger.getGlobal().info( "Voici la valeur a diffuser aux afficheurs " + tampon);
+			tmp = value; 
+			Logger.getGlobal().info( "Voici la valeur a diffuser aux afficheurs " + tmp);
 			this.notifyAllObeservers();
 		}
 
@@ -48,25 +48,22 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 	@Override
 	public Integer execute(Observer observer) {
 
-
 		// TODO Auto-generated method stub
 		this.observers.add(observer);
-		Logger.getGlobal().info(" Ma taille est : ");
+		Logger.getGlobal().info(" The size is : ");
 		if(this.canals.size() == this.observers.size()) {
 			observers.clear();
 			Logger.getGlobal().info(" Des obersvers sont effacés " + observers.size());
 		}
-		return tampon;
+		return tmp;
 	}
 
 	public void notifyAllObeservers() {
 		// TODO Auto-generated method stub
 
-		int i = 0 ;
-		for (Observer observer : canals) {
-			i++ ;
-			observer.update(this.capteur);
-			Logger.getGlobal().info("	les canals	" + i + "	sont notifiés	");
+		for (Observer obs : canals) {
+			obs.update(this.capteur);
+			Logger.getGlobal().info("	les canals	" + obs + "	sont notifiés	");
 		}
 
 	}

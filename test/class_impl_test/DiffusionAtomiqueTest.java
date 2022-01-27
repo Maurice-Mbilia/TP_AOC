@@ -92,13 +92,11 @@ class DiffusionAtomiqueTest {
 			
 		}
 			
-		Logger.getGlobal().info("	resultat de " + " " + afficheur_1.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_2.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_3.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_4.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_5.toString());	
+		Logger.getGlobal().info("	resultat of " + " " + afficheur_1.toString());
+        Logger.getGlobal().info("	resultat of " + " " + afficheur_2.toString());
+        Logger.getGlobal().info("	resultat of " + " " + afficheur_3.toString());
+        Logger.getGlobal().info("	resultat of " + " " + afficheur_4.toString());
+        Logger.getGlobal().info("	resultat of " + " " + afficheur_5.toString());	
 	}
 
 }
-
-

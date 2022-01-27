@@ -40,10 +40,12 @@ class DiffusionEpoqueTest {
 	@Test
 	void valueWritten() {
 		
+		//int value = 1;
 		capteur.tick();
 		AlgoDiffusion strategy = capteur.getStrategy(); 
-		Integer valueAfterTick = strategy.execute(canal_1);
-		assertNotNull(valueAfterTick);
+		Integer valueOfTick = strategy.execute(canal_1);
+		assertNotNull(valueOfTick);
+		
 	}
 	@Test
 	void lock() {
@@ -51,11 +53,11 @@ class DiffusionEpoqueTest {
 	}
 	
 	@Test
-	void executeTest() {
-		ScheduledExecutorService scheduledexecutor = Executors.newScheduledThreadPool(3);
+	void executeEpoqueTest() {
+		ScheduledExecutorService scheduledexecutor = Executors.newSingleThreadScheduledExecutor(); 
 		try { 
-			scheduledexecutor .scheduleAtFixedRate(capteur::tick, 2, 5	, TimeUnit.SECONDS);
-			scheduledexecutor .awaitTermination(180, TimeUnit.SECONDS); 
+			scheduledexecutor .scheduleAtFixedRate(capteur::tick, 2, 4, TimeUnit.SECONDS);
+			scheduledexecutor .awaitTermination(30, TimeUnit.SECONDS); 
 			
 		} catch (Exception exception) {
 			Logger.getGlobal().info(" L'exécution du thread ne s'est pas bien passée ... mince");

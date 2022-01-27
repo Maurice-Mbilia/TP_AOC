@@ -11,7 +11,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
 	
 	private CapteurImpl capteur;
 	List<Observer> canals; 
-	private Integer value;
+	private Integer value = 0;
 	
 	public DiffusionEpoque() {
 		
@@ -23,29 +23,28 @@ public class DiffusionEpoque implements AlgoDiffusion {
 		// TODO Auto-generated method stub
 		this.capteur = capteur; 
 		this.canals = this.capteur.getObservers();	
+	}	
+	@Override
+	public void valueWritten() {
+		// TODO Auto-generated method stub
+		// la valeur s'incremente de 1
+		value = value + 1; 
+		
+		// Notifications
+		notifyAllObservers();		
 	}
-
 	@Override
 	public Integer execute(Observer observer) {
 		// TODO Auto-generated method stub
 		return value;
 	}
-
 	private void notifyAllObservers() {
 		// TODO Auto-generated method stub
-		Observer observer = null; 
-		
-		for(int i = 0; i < canals.size(); i++) { // ???? size of capteur ???
-			observer.update(this.capteur);
-			Logger.getGlobal().info("  les canals " + i + " sont notifiés ");
+		// Observer observer = null; 
+		for(Observer obs : canals) { // We made with size of canals
+			
+			obs.update(this.capteur);
+			Logger.getGlobal().info("  les canals " + obs + " sont notifiés ");
 		}		
-	}
-
-	@Override
-	public void valueWritten() {
-		// TODO Auto-generated method stub
-		value ++; 
-		notifyAllObservers();
-		
 	}
 }

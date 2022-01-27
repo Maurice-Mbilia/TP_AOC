@@ -62,7 +62,7 @@ public class DiffusionSequentielleTest {
 	void executeTest() {
 		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 		try {
-			executor.scheduleAtFixedRate(capteur::tick, 1, 5, TimeUnit.SECONDS);
+			executor.scheduleAtFixedRate(capteur::tick, 1, 10, TimeUnit.SECONDS);
 			executor.awaitTermination(60, TimeUnit.SECONDS);
 		}catch (Exception e){
 			Logger.getGlobal().info("L'exécution du thread ne s'est pas bien passée " + e.getMessage());
