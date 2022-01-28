@@ -152,7 +152,7 @@ Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion 
 
 Dans la partie @Test, on exécute les tests, on y trouve ce qui suit :
 
-* instanciation de stratégie 
+* instanciation de stratégie.
 * injecter pour chaque cas de test une stratégie dans le capteur.
 * faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur.
 * laisser le temps de simulation pendant que les threads s’exécutent.
