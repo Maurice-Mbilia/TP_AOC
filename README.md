@@ -38,10 +38,10 @@ Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagra
 * La partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler.
 * La partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties. 
 
-Il convient de noter que le pattern Active Object pour sa conception il fait appel à d'autres patterns, qui sont :
+Il convient de noter que le pattern Active Object pour sa conception fait appel à d'autres patterns, qui sont :
 * Le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal.
 * Le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
-* Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. Dans le diagramme de classe qui suit, nous avons la 
+* Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. Dans le diagramme de classe qui suit, nous avons une illustration du design pattern Strategy. 
 
 
 
@@ -54,12 +54,12 @@ Regardons maintenant de plus près ce que fait chaque algorithme de diffusion.
 
 ### La diffusion atomique
 
-Nous avons vu en cours qu'une opération atomique est une opération composée éventuellement de plusieurs actions, qui se déroule sans pouvoir être interrompue, en particulier par un autre thread. Dans une diffusion atomique, tous lles observateurs reçoivent la même valeur (la valeur du sujet)
+Nous avons vu en cours qu'une opération atomique est une opération composée éventuellement de plusieurs actions, qui se déroule sans pouvoir être interrompue, en particulier par un autre thread. Dans une diffusion atomique, tous les observateurs reçoivent la même valeur (la valeur du sujet).
 
 
 ### La diffusion séquentielle
 
-Dans une diffusion séquentielle, tous les observateurs reçoivent la même valeur, mais cette séquence peut être différente de celle du sujet
+Dans une diffusion séquentielle, tous les observateurs reçoivent la même valeur, mais cette séquence peut être différente de celle du sujet.
 
 
 
@@ -74,7 +74,7 @@ Le projet est conçu dans le respect des principes SOLID, qui est est un acronym
 
 
 
-Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
+Toutes les interfaces sont regroupées dans le même package, et les différentes classes qui implémentent ces interfaces, figurent également dans un package qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
 
 
 
@@ -120,15 +120,15 @@ L'interface ScheduledExecutorService hérite de l'interface ExecutorService. Ell
 Il convient de noter que l'exécution d'une tâche se fait de manière **asynchrone** dans un thread dédié à cet effet.
 
 Par ailleurs, la classe Executors est une fabrique qui permet de créer des instances de type Executor. Elle propose notamment plusieurs méthodes pour créer une instance de type ScheduledExecutorService. Les méthodes que nous avons principalement utilisées sont :
-* newSingleThreadScheduledExecutor() : elle renvoye une instance de type ScheduledExecutorService qui n'utilise qu'un seul thread pour l'exécution des tâches.
+* newSingleThreadScheduledExecutor() : elle renvoie une instance de type ScheduledExecutorService qui n'utilise qu'un seul thread pour l'exécution des tâches.
 * ScheduledFuture<Integer> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) : Planifier l'exécution du Runnable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant le delay au timestamp de la fin de la dernière exécution.
   
 * scheduleAtFixedRate(capteur::tick, 2, 9, TimeUnit.SECONDS) : c'est pour planifier l'exécution du collable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant l'initialDelay et la période multipliée par le nombre d'exécutions.
 * awaitTermination(30, TimeUnit.SECONDS) : 
 * shutdown() : pour demander la fermeture du service. Toutes les tâches en cours d'exécution se poursuivent jusqu'à leur fin mais plus aucune nouvelle tâche ne peut être ajoutée dans le service.
-* newScheduledThreadPool(POOL_SIZE) : elle renvoye une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
+* newScheduledThreadPool(POOL_SIZE) : elle renvoie une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
  
-* awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier
+* awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier.
 
 Dans la classe concrète CapteurImpl, les méthodes getValue() (avec et sans paramètre), il fallait bien faire la différence entre les deux. 
 Le "Canal" joue le rôle de proxy pour le capteur. Par conséquent, il implémente les interfaces Subject et Capteur. 
@@ -147,16 +147,16 @@ Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion 
 
 * 1 capteur.
 * Canaux (canals), 5 canals.
-* Affichicheurs (faire du câblage, donc de la connexion pour afficher les données), on a instancié 5 afficheurs.
+* Afficheurs (faire du câblage, donc de la connexion pour afficher les données), on a instancié 5 afficheurs.
 * scheduledExecutorService (ES) pour faire l’injection de dépendance.
 
 Dans la partie @Test, on exécute les tests, on y trouve ce qui suit :
 
-* instanciation de stratégie 
-* injecter pour chaque cas de test une stratégie dans le capteur
-* faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur 
-* laisser le temps de simulation pendant que les threads s’exécutent
-* arrêter les  tick() avec le lock() et unlock, pour assurer la gestion des verrous
+* instanciation de stratégie.
+* injecter pour chaque cas de test une stratégie dans le capteur.
+* faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur.
+* laisser le temps de simulation pendant que les threads s’exécutent.
+* arrêter les  tick() avec le lock() et unlock, pour assurer la gestion des verrous.
 * awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
  
 ### Les résultats des tests 
