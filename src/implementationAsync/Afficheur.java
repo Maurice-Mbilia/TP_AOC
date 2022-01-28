@@ -50,10 +50,10 @@ public class Afficheur implements ObserverDeCapteur {
 		return null;
 	}
 
-	public void writeInFile(String strategy) {
+	public void writeValues(String strategy) {
 		try {
-			String pathFile = nameAfficheur + " " + strategy + ".txt";
-			FileWriter fileWriter = new FileWriter(pathFile);
+			String path = nameAfficheur + " " + strategy + ".txt";
+			FileWriter fileWriter = new FileWriter(path);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
 			for (Integer result : results) {
@@ -64,7 +64,7 @@ public class Afficheur implements ObserverDeCapteur {
 			bufferedWriter.close();
 			fileWriter.close();
 		} catch (IOException e) {
-			Logger.getGlobal().info("Interrupted exception caught");
+			Logger.getGlobal().info(" Interrupted exception caught ");
 		}
 	}	
 	
@@ -74,7 +74,7 @@ public class Afficheur implements ObserverDeCapteur {
 	
 	@Override
 	public String toString() {
-		StringBuilder afficherResults = new StringBuilder("Je suis l'afficheur : " + getNameAfficheur());
+		StringBuilder afficherResults = new StringBuilder(" I'm the diplay :" +  " " + getNameAfficheur());
 		for(Integer value : results) {
 			afficherResults.append(" " + value);
 		}

@@ -44,7 +44,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
 		for(Observer obs : canals) { // We made with size of canals
 			
 			obs.update(this.capteur);
-			Logger.getGlobal().info("  les canals " + obs + " sont notifiés ");
+			Logger.getGlobal().info(" Canals " + obs + " Notified ");
 		}		
 	}
 }

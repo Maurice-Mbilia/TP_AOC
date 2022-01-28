@@ -21,7 +21,7 @@ public class Canal implements ObserverAsync, SubjectAsync  {
 	private Capteur capteur;
 	private final static int MINIMUM_TIME = 1000;
 	private final static int MAXIMUM_TIME = 3000; 
-	private final static int POOL_SIZE = 4; 
+	private final static int POOL_SIZE = 3; 
 	private final ScheduledExecutorService executorservice;
 	List<Observer<SubjectAsync>> afficheurObservers;
 	
@@ -89,7 +89,7 @@ public class Canal implements ObserverAsync, SubjectAsync  {
 			@Override
 			public Void call() {
 				for(Observer<SubjectAsync> print : afficheurObservers) {
-					Logger.getGlobal().info(canals + " " + "Je vous informe que l'afficheur" + " " +  " " + print + " " + "sont notifiés ");
+					Logger.getGlobal().info(canals + " Let me tell you that " + " " + print + " are notified ");
 					print.update(canal); 
 				
 				}

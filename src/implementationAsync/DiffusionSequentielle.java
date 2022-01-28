@@ -53,7 +53,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		Logger.getGlobal().info(" The size is : ");
 		if(this.canals.size() == this.observers.size()) {
 			observers.clear();
-			Logger.getGlobal().info(" Des obersvers sont effacés " + observers.size());
+			Logger.getGlobal().info(" Des obersvers sont effacés ");  //  + observers.size()
 		}
 		return tmp;
 	}

@@ -57,13 +57,13 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 	@Override
 	public Integer execute(Observer observerCanal) {
 		// TODO Auto-generated method stub
-		Objects.requireNonNull(observerCanal, " le canal ne doit pas être nul");
+		Objects.requireNonNull(observerCanal, " The canal can not be null ");
 		this.observers.add(observerCanal);
 		
 		if(this.canals.size() == this.observers.size()) {
 			this.capteur.unlock();
 			observers.clear();
-			Logger.getGlobal().info(" les valeurs qui s'affichent sont : ");
+			Logger.getGlobal().info(" Display values : ");
 			
 		}
 		
@@ -73,13 +73,10 @@ public class DiffusionAtomique implements AlgoDiffusion  {
 
 	public void notifyAllObeservers() {
 		// TODO Auto-generated method stub
-		
-		int i = 0;  
+		 
 		for(Observer observer: canals) {
-			
-			i ++;
 			observer.update(this.capteur);
-			Logger.getGlobal().info(" Je vous informe que le canal " + i + " sont notifiés ");
+			Logger.getGlobal().info(" Je vous informe que le canal " + observer + " sont notifiés ");
 		}
 		
 	}
