@@ -28,7 +28,7 @@ Le pattern active object, est un pattern qui dissocie l’exécution de la méth
 
  ![L'architecture du projet](diagram.png) 
  
- **Figure 1 : le dagramme de classe du pattern Active Object**
+ **Figure 1 : le diagramme de classe du pattern Active Object**
 
 
 ## Les rôles de diagramme représentatif du pattern Active Objectif
