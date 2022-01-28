@@ -74,7 +74,7 @@ Le projet est conçu dans le respect des principes SOLID, qui est est un acronym
 
 
 
-Toutes les interfaces sont regroupées dans le même pacquage, et les différentes classes qui implémentent ces interfaces, figurent également dans un pacquage qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
+Toutes les interfaces sont regroupées dans le même package, et les différentes classes qui implémentent ces interfaces, figurent également dans un package qui leurs est dédié. La figure ci-dessous, laisse transparaître la configuration du projet.
 
 
 
