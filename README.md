@@ -128,7 +128,7 @@ Par ailleurs, la classe Executors est une fabrique qui permet de créer des inst
 * shutdown() : pour demander la fermeture du service. Toutes les tâches en cours d'exécution se poursuivent jusqu'à leur fin mais plus aucune nouvelle tâche ne peut être ajoutée dans le service.
 * newScheduledThreadPool(POOL_SIZE) : elle renvoye une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
  
-* awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier
+* awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier.
 
 Dans la classe concrète CapteurImpl, les méthodes getValue() (avec et sans paramètre), il fallait bien faire la différence entre les deux. 
 Le "Canal" joue le rôle de proxy pour le capteur. Par conséquent, il implémente les interfaces Subject et Capteur. 
@@ -153,10 +153,10 @@ Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion 
 Dans la partie @Test, on exécute les tests, on y trouve ce qui suit :
 
 * instanciation de stratégie 
-* injecter pour chaque cas de test une stratégie dans le capteur
-* faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur 
-* laisser le temps de simulation pendant que les threads s’exécutent
-* arrêter les  tick() avec le lock() et unlock, pour assurer la gestion des verrous
+* injecter pour chaque cas de test une stratégie dans le capteur.
+* faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur.
+* laisser le temps de simulation pendant que les threads s’exécutent.
+* arrêter les  tick() avec le lock() et unlock, pour assurer la gestion des verrous.
 * awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
  
 ### Les résultats des tests 
