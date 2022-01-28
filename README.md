@@ -41,7 +41,7 @@ Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagra
 Il convient de noter que le pattern Active Object pour sa conception il fait appel à d'autres patterns, qui sont :
 * Le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal.
 * Le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
-* Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. Dans le diagramme de classe qui suit, nous avons la 
+* Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. Dans le diagramme de classe qui suit, nous avons une illustration du degign pattern Strategy. 
 
 
 
@@ -54,12 +54,12 @@ Regardons maintenant de plus près ce que fait chaque algorithme de diffusion.
 
 ### La diffusion atomique
 
-Nous avons vu en cours qu'une opération atomique est une opération composée éventuellement de plusieurs actions, qui se déroule sans pouvoir être interrompue, en particulier par un autre thread. Dans une diffusion atomique, tous lles observateurs reçoivent la même valeur (la valeur du sujet)
+Nous avons vu en cours qu'une opération atomique est une opération composée éventuellement de plusieurs actions, qui se déroule sans pouvoir être interrompue, en particulier par un autre thread. Dans une diffusion atomique, tous les observateurs reçoivent la même valeur (la valeur du sujet).
 
 
 ### La diffusion séquentielle
 
-Dans une diffusion séquentielle, tous les observateurs reçoivent la même valeur, mais cette séquence peut être différente de celle du sujet
+Dans une diffusion séquentielle, tous les observateurs reçoivent la même valeur, mais cette séquence peut être différente de celle du sujet.
 
 
 
