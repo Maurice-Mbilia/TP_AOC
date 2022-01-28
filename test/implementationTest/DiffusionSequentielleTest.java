@@ -87,7 +87,7 @@ public class DiffusionSequentielleTest {
 			Set<Integer> results5 = display_5.getResults(); 
 			display_5.writeValues("_SEQUENTIELLE");
 
-			assertTrue((results1.size() == results2.size()) && (results2.size() == results3.size()) && (results3.size() == results4.size()) && results4.size() == results5.size());
+			assertTrue((results1.size() == results2.size()) && (results2.size() == results3.size()) && (results3.size() == results4.size()) && results4.size() == results5.size(), ()-> " they are all egal ");
 
 			for (int i = 0; i < results1.size(); i++) {
 				assertTrue((results1.toArray()[i] == results2.toArray()[i]) && (results1.toArray()[i] == results3.toArray()[i]) && (results1.toArray()[i] == results4.toArray()[i]) && (results1.toArray()[i] == results5.toArray()[i]));
