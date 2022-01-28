@@ -1,6 +1,6 @@
-package implementation_interfaces;
+package interfacesAsync;
 
-import class_impl.CapteurImpl;
+import implementationAsync.CapteurImpl;
 
 public interface AlgoDiffusion {
 	

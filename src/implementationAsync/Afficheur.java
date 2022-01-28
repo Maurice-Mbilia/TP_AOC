@@ -1,4 +1,4 @@
-package class_impl;
+package implementationAsync;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -9,9 +9,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import implementation_interfaces.Observer;
-import implementation_interfaces.ObserverDeCapteur;
-import implementation_interfaces.Subject;
+import interfacesAsync.Observer;
+import interfacesAsync.ObserverDeCapteur;
+import interfacesAsync.Subject;
 
 public class Afficheur implements ObserverDeCapteur {
 
@@ -35,16 +35,16 @@ public class Afficheur implements ObserverDeCapteur {
 	@Override
 	public Void update(Subject subject) {
 		// TODO Auto-generated method stub
-		Future<Integer> future = (Future<Integer>)subject.getValue(this);
+		Future<Integer> future = (Future<Integer>)subject.getValue(this); // cast future
 		try {
 			Integer result = future.get();
 			this.results.add(result);
 
 		} catch (ExecutionException e) {
-			Logger.getGlobal().severe("Interrupted exception caught");
+			Logger.getGlobal().info(" Interrupted exception caught ");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			Logger.getGlobal().severe("Interrupted exception caught");
+			Logger.getGlobal().info(" Interrupted exception caught ");
 		}
 
 		return null;
@@ -64,7 +64,7 @@ public class Afficheur implements ObserverDeCapteur {
 			bufferedWriter.close();
 			fileWriter.close();
 		} catch (IOException e) {
-			Logger.getGlobal().severe("Interrupted exception caught");
+			Logger.getGlobal().info("Interrupted exception caught");
 		}
 	}	
 	
@@ -80,5 +80,4 @@ public class Afficheur implements ObserverDeCapteur {
 		}
 		return afficherResults.toString();
 	}
-
 }

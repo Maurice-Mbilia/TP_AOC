@@ -1,13 +1,13 @@
-package class_impl;
+package implementationAsync;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import implementation_interfaces.AlgoDiffusion;
-import implementation_interfaces.Capteur;
-import implementation_interfaces.Observer;
+import interfacesAsync.AlgoDiffusion;
+import interfacesAsync.Capteur;
+import interfacesAsync.Observer;
 
 public class CapteurImpl implements Capteur  {
 	

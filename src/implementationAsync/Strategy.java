@@ -1,4 +1,4 @@
-package class_impl;
+package implementationAsync;
 
 public enum Strategy {
 	

@@ -1,4 +1,4 @@
-package class_impl_test;
+package implementationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
 
-import class_impl.Afficheur;
-import class_impl.Canal;
-import class_impl.CapteurImpl;
-import class_impl.Strategy;
-import implementation_interfaces.AlgoDiffusion;
+import implementationAsync.Afficheur;
+import implementationAsync.Canal;
+import implementationAsync.CapteurImpl;
+import implementationAsync.Strategy;
+import interfacesAsync.AlgoDiffusion;
 
 class DiffusionAtomiqueTest {
 	
@@ -59,13 +59,13 @@ class DiffusionAtomiqueTest {
 			scheduledExecutorService.awaitTermination(120, TimeUnit.SECONDS); 
 			
 		} catch (Exception e) {
-			Logger.getGlobal().info("Désolé, l'exécution de la tache ne s'est pas passée comme prévu" + e.getMessage());
+			Logger.getGlobal().info("Sorry, the task execution did not go well" + e.getMessage());
 		} finally {
 			if (scheduledExecutorService != null) {
 				scheduledExecutorService.shutdown();
 			}
 		}
-		Logger.getGlobal().info("simulator is terminate ");
+		Logger.getGlobal().info("simulator is done ");
 		
 		Set<Integer> results1 = afficheur_1.getResults(); 
 		afficheur_1.writeInFile("ATOMIQUE");
@@ -84,19 +84,17 @@ class DiffusionAtomiqueTest {
 		
 		assertTrue(results1.size()==results2.size() && results2.size()==results3.size() && results3.size()==results4.size() && results3.size()==results4.size(), "Les sous suites sont tous egaux");
 		
-		for(int i = 0; i < results1.size(); i++) {
-			
-			assertTrue(results1.toArray()[i] == results2.toArray()[i] && results1.toArray()[i] == results3.toArray()[i] && results1.toArray()[i] == results4.toArray()[i] && results1.toArray()[i] == results5.toArray()[i]);
-			
+		for(int i = 0; i < results1.size(); i++) {			
+			assertTrue((results1.toArray()[i] == results2.toArray()[i]) && (results1.toArray()[i] == results3.toArray()[i]) && (results1.toArray()[i] == results4.toArray()[i]) && (results1.toArray()[i] == results5.toArray()[i]));			
 			assertTrue(results1.toArray()[i] == results2.toArray()[i]);
 			
 		}
 			
-		Logger.getGlobal().info("	resultat of " + " " + afficheur_1.toString());
-        Logger.getGlobal().info("	resultat of " + " " + afficheur_2.toString());
-        Logger.getGlobal().info("	resultat of " + " " + afficheur_3.toString());
-        Logger.getGlobal().info("	resultat of " + " " + afficheur_4.toString());
-        Logger.getGlobal().info("	resultat of " + " " + afficheur_5.toString());	
+		Logger.getGlobal().info("	result of " + " " + afficheur_1.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_2.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_3.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_4.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_5.toString());	
 	}
 
 }

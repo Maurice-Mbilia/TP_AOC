@@ -1,4 +1,4 @@
-package implementation_interfaces;
+package interfacesAsync;
 
 /**
  * @author etops mbilia

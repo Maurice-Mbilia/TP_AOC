@@ -1,23 +1,25 @@
-package class_impl_test;
+package implementationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.jupiter.api.Test;
 
-import class_impl.Afficheur;
-import class_impl.Canal;
-import class_impl.CapteurImpl;
-import class_impl.Strategy;
-import implementation_interfaces.AlgoDiffusion;
+import implementationAsync.Afficheur;
+import implementationAsync.Canal;
+import implementationAsync.CapteurImpl;
+import implementationAsync.Strategy;
+import interfacesAsync.AlgoDiffusion;
 
 class DiffusionEpoqueTest {
+	
+	 //@BeforeEach
 	
 	public static CapteurImpl capteur = new CapteurImpl("capteur_A", Strategy.DiffusionEpoque);
 	
@@ -49,24 +51,26 @@ class DiffusionEpoqueTest {
 	}
 	@Test
 	void lock() {
-		assertFalse(capteur.isLock(), "Tout verrou tombe par terre");
+		assertFalse(capteur.isLock(), "UNLOCKED");
 	}
 	
 	@Test
 	void executeEpoqueTest() {
 		ScheduledExecutorService scheduledexecutor = Executors.newSingleThreadScheduledExecutor(); 
 		try { 
-			scheduledexecutor .scheduleAtFixedRate(capteur::tick, 2, 4, TimeUnit.SECONDS);
-			scheduledexecutor .awaitTermination(30, TimeUnit.SECONDS); 
+			scheduledexecutor.scheduleAtFixedRate(capteur::tick, 2, 4, TimeUnit.SECONDS);
+			
+			//scheduledexecutor.schedule(capteur::tick, 10, TimeUnit.SECONDS);
+			scheduledexecutor.awaitTermination(120, TimeUnit.SECONDS); 
 			
 		} catch (Exception exception) {
-			Logger.getGlobal().info(" L'exécution du thread ne s'est pas bien passée ... mince");
+			Logger.getGlobal().info(" Sorry! the thread execution is not good ");
 		} finally {
-			if (scheduledexecutor  != null) {
-				scheduledexecutor .shutdown();
+			if (scheduledexecutor != null) {
+				scheduledexecutor.shutdown();
 			}
 		}
-		Logger.getGlobal().info(" Fin de test ");
+		Logger.getGlobal().info(" End of test ");
 		
 		Set<Integer> results1 = afficheur_1.getResults(); 
 		afficheur_1.writeInFile("EPOQUE");
@@ -88,11 +92,11 @@ class DiffusionEpoqueTest {
 		afficheur_5.writeInFile("EPOQUE");
 		assertFalse(results5.isEmpty());
 		
-		Logger.getGlobal().info("	resultat de " + " " + afficheur_1.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_2.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_3.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_4.toString());
-        Logger.getGlobal().info("	resultat de " + " " + afficheur_5.toString());	
+		Logger.getGlobal().info("	result of " + " " + afficheur_1.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_2.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_3.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_4.toString());
+        Logger.getGlobal().info("	result of " + " " + afficheur_5.toString());	
 	}
 
 }

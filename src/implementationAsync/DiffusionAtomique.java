@@ -1,4 +1,4 @@
-package class_impl;
+package implementationAsync;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import implementation_interfaces.AlgoDiffusion;
-import implementation_interfaces.Observer;
+import interfacesAsync.AlgoDiffusion;
+import interfacesAsync.Observer;
 
 public class DiffusionAtomique implements AlgoDiffusion  {
 	

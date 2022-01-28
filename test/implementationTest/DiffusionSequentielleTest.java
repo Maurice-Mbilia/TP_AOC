@@ -1,6 +1,7 @@
-package class_impl_test;
+package implementationTest;
 
 import static org.junit.Assert.assertFalse;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -10,17 +11,15 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
-import class_impl.Afficheur;
-import class_impl.Canal;
-import class_impl.CapteurImpl;
-import class_impl.Strategy;
-import implementation_interfaces.AlgoDiffusion;
+import implementationAsync.Afficheur;
+import implementationAsync.Canal;
+import implementationAsync.CapteurImpl;
+import implementationAsync.Strategy;
+import interfacesAsync.AlgoDiffusion;
 
 public class DiffusionSequentielleTest {
 
@@ -60,18 +59,18 @@ public class DiffusionSequentielleTest {
 
 	@Test 
 	void executeTest() {
-		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+		ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 		try {
-			executor.scheduleAtFixedRate(capteur::tick, 1, 10, TimeUnit.SECONDS);
-			executor.awaitTermination(60, TimeUnit.SECONDS);
+			scheduledExecutorService.scheduleAtFixedRate(capteur::tick, 1, 10, TimeUnit.SECONDS);
+			scheduledExecutorService.awaitTermination(60, TimeUnit.SECONDS);
 		}catch (Exception e){
-			Logger.getGlobal().info("L'exécution du thread ne s'est pas bien passée " + e.getMessage());
+			Logger.getGlobal().info("The thread execution did not go well" + e.getMessage());
 		} finally {
-			if(executor != null) {
-				executor.shutdown();
+			if(scheduledExecutorService != null) {
+				scheduledExecutorService.shutdown();
 			}
 		}
-			Logger.getGlobal().info("executor se termine " + executor.isTerminated());
+			Logger.getGlobal().info("scheduledExecutorService is done " + scheduledExecutorService.isTerminated());
 
 			Set<Integer> results1 = afficheur_1.getResults(); 
 			afficheur_1.writeInFile("_SEQUENTIELLE");
@@ -91,21 +90,21 @@ public class DiffusionSequentielleTest {
 			assertTrue(results1.size() == results2.size() && results2.size() == results3.size() && results3.size() == results4.size() && results4.size() == results5.size());
 
 			for (int i = 0; i < results1.size(); i++) {
-				assertTrue(results1.toArray()[i] == results2.toArray()[i] && results1.toArray()[i] == results3.toArray()[i] && results1.toArray()[i] == results4.toArray()[i] && results1.toArray()[i] == results5.toArray()[i]);
+				assertTrue((results1.toArray()[i] == results2.toArray()[i]) && (results1.toArray()[i] == results3.toArray()[i]) && (results1.toArray()[i] == results4.toArray()[i]) && (results1.toArray()[i] == results5.toArray()[i]));
 
 				
-				assertTrue(results2.toArray()[i] == results3.toArray()[i] && results2.toArray()[i] == results4.toArray()[i]);
+				assertTrue((results2.toArray()[i] == results3.toArray()[i]) && (results2.toArray()[i] == results4.toArray()[i]));
 
-                assertSame(results3.toArray()[i], results4.toArray()[i], " Les valeurs sont égales ");
+                assertSame(results3.toArray()[i], results4.toArray()[i], "The values are equals ");
 
 
 			}
 
-			Logger.getGlobal().info("	resultat de " + " " + afficheur_1.toString());
-	        Logger.getGlobal().info("	resultat de " + " " + afficheur_2.toString());
-	        Logger.getGlobal().info("	resultat de " + " " + afficheur_3.toString());
-	        Logger.getGlobal().info("	resultat de " + " " + afficheur_4.toString());
-	        Logger.getGlobal().info("	resultat de " + " " + afficheur_5.toString());	
+			Logger.getGlobal().info("	result of " + " " + afficheur_1.toString());
+	        Logger.getGlobal().info("	result of " + " " + afficheur_2.toString());
+	        Logger.getGlobal().info("	result of " + " " + afficheur_3.toString());
+	        Logger.getGlobal().info("	result of " + " " + afficheur_4.toString());
+	        Logger.getGlobal().info("	result of " + " " + afficheur_5.toString());	
 		
 	}
 }
