@@ -119,13 +119,20 @@ Les classes concrètes sont :
 L'interface ScheduledExecutorService hérite de l'interface ExecutorService. Elle définit les fonctionnalités qui permettent de planifier l'exécution d'une tâche après un certain délai ou son exécution répétée avec un intervalle de temps fixe.
 Il convient de noter que l'exécution d'une tâche se fait de manière **asynchrone** dans un thread dédié à cet effet.
 
-Par ailleurs, la classe Executors est une fabrique qui permet de créer des instances de type Executor. Elle propose notamment plusieurs méthodes pour créer une instance de type ScheduledExecutorService.
+Par ailleurs, la classe Executors est une fabrique qui permet de créer des instances de type Executor. Elle propose notamment plusieurs méthodes pour créer une instance de type ScheduledExecutorService. Les méthodes que nous avons principalement utilisées sont :
+* newSingleThreadScheduledExecutor() : elle renvoye une instance de type ScheduledExecutorService qui n'utilise qu'un seul thread pour l'exécution des tâches.
+* ScheduledFuture<Integer> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) : Planifier l'exécution du Runnable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant le delay au timestamp de la fin de la dernière exécution.
+  
+* scheduleAtFixedRate(capteur::tick, 2, 9, TimeUnit.SECONDS) : c'est pour planifier l'exécution du collable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant l'initialDelay et la période multipliée par le nombre d'exécutions.
+* awaitTermination(30, TimeUnit.SECONDS) : 
+* shutdown() : pour demander la fermeture du service. Toutes les tâches en cours d'exécution se poursuivent jusqu'à leur fin mais plus aucune nouvelle tâche ne peut être ajoutée dans le service.
+* newScheduledThreadPool(POOL_SIZE) : elle renvoye une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
+ 
+* awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier
 
-
-
-Dans la classe concrète CapteurImpl, getValue : avec et sans paramètres … il faut faire la différence 
-Canal joue le rôle de proxy pour le capteur, donc il fait se comporte comme un capteur. Par conséquent, il implémente les interfaces Subject et Capteur. 
-Pour ce qui concerne les trois stratégies, nous avons implémenté la classe énumérée Stratégie, dont les éléments sont : DiffusionAtomique, DiffusionSequentielle et DiffusionEpoque
+Dans la classe concrète CapteurImpl, les méthodes getValue() (avec et sans paramètre), il fallait bien faire la différence entre les deux. 
+Le "Canal" joue le rôle de proxy pour le capteur. Par conséquent, il implémente les interfaces Subject et Capteur. 
+Pour ce qui concerne les trois stratégies, nous avons implémenté la classe énumérée Stratégie, dont les éléments sont : DiffusionAtomique, DiffusionSequentielle et DiffusionEpoque, ce qui fait qu'on peut switcher d'un algirithme de diffusion à un autre.
 
 
 ![L'architecture du projet](diag_seq.png) 
@@ -134,24 +141,36 @@ Pour ce qui concerne les trois stratégies, nous avons implémenté la classe é
 
 ## Package Test
 
-Parce qu’on ne doit pas utiliser la méthode main(), il est donc recommandé de faire des tests sous Junit 5. On va implémenter une classe TEST.
+Parce qu’on ne doit pas utiliser la méthode main(), il est donc recommandé de faire des tests sous Junit 5. Nous allons donc implémenter une classe dédiée aux tests.
 
 Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion :
 
-* 1 capteur
-* canaux (canals)
-* affichicheurs (faire du câblage, donc de la connexion pour afficher les données)
-* scheduled ExecutorService (ES) pour faire l’injection de dépendance.
+* 1 capteur.
+* Canaux (canals), 5 canals.
+* Affichicheurs (faire du câblage, donc de la connexion pour afficher les données), on a instancié 5 afficheurs.
+* scheduledExecutorService (ES) pour faire l’injection de dépendance.
 
-Dans la partie @Test, on exécute les tests 
+Dans la partie @Test, on exécute les tests, on y trouve ce qui suit :
 
 * instanciation de stratégie 
 * injecter pour chaque cas de test une stratégie dans le capteur
 * faire une demande auprès de scheduledExecutorService d’exécuter périodiquement une méthode invocation qui appelle tick() sur la capteur 
 * laisser le temps de simulation pendant que les threads s’exécutent
-* arrêter les  tick() avec le lock() et unlock, donc assurer la gestion des verrous
+* arrêter les  tick() avec le lock() et unlock, pour assurer la gestion des verrous
 * awaitTermination sur le  scheduledExecutorService (pour la resynchronisation).
-
+ 
+### Les résultats des tests 
+ 
+ les différents tests effectués pour chaque algorithme de diffusion donnent les résultats suivants : 
+ 
+![testAtomique](testAtomique.png)  
+**Figure 5 : test diffusionAtomique**
+ 
+ ![testSequentielle](testSequentiel.png)  
+**Figure 6 : test diffusionSequentielle**
+ 
+ ![testEpoque](testEpoque.png)  
+**Figure 7 : test Epoque**
 
  
 
