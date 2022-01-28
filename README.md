@@ -38,7 +38,7 @@ Comme vous pouvez le remarquer, nous avons reparti les rôles de ce grand diagra
 * La partie droite : c’est dans le contexte du scheduler, et il y au moins un thread, dans le cas général plusieurs threads, ces derniers sont supervisés par le Scheduler.
 * La partie haute : on a des classes ou des types qui participent à la communication et à  la synchronisations des deux autres parties. 
 
-Il convient de noter que le pattern Active Object pour sa conception il fait appel à d'autres patterns, qui sont :
+Il convient de noter que le pattern Active Object pour sa conception fait appel à d'autres patterns, qui sont :
 * Le pattern Proxy : qui est un patron de conception structurel qui fournit un objet qui agit comme un substitut pour un objet du service utilisé par un client; et dans ce projet, ce rôle de proxy sera joué par la classe Canal.
 * Le pattern Observer : ce design pattern est utilisé pour envoyer des notifications (à chaque tick) aux capteurs qui jouent le rôle d'observateurs; et qu'en cas de notification, les observateurs effectuent alors l'action adéquate en fonction des informations qui parviennent depuis les modules qu'ils observent
 * Le pattern Strategy : c'est un patron de conception de type comportemental grâce auquel des algorithmes peuvent être sélectionnés à la volée au cours du temps d'exécution selon certaines conditions. Dans le diagramme de classe qui suit, nous avons une illustration du degign pattern Strategy. 
