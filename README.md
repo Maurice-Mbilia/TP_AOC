@@ -120,13 +120,13 @@ L'interface ScheduledExecutorService hérite de l'interface ExecutorService. Ell
 Il convient de noter que l'exécution d'une tâche se fait de manière **asynchrone** dans un thread dédié à cet effet.
 
 Par ailleurs, la classe Executors est une fabrique qui permet de créer des instances de type Executor. Elle propose notamment plusieurs méthodes pour créer une instance de type ScheduledExecutorService. Les méthodes que nous avons principalement utilisées sont :
-* newSingleThreadScheduledExecutor() : elle renvoye une instance de type ScheduledExecutorService qui n'utilise qu'un seul thread pour l'exécution des tâches.
+* newSingleThreadScheduledExecutor() : elle renvoie une instance de type ScheduledExecutorService qui n'utilise qu'un seul thread pour l'exécution des tâches.
 * ScheduledFuture<Integer> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) : Planifier l'exécution du Runnable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant le delay au timestamp de la fin de la dernière exécution.
   
 * scheduleAtFixedRate(capteur::tick, 2, 9, TimeUnit.SECONDS) : c'est pour planifier l'exécution du collable fourni en paramètre après le délai précisé. La prochaine exécution est déterminée en ajoutant l'initialDelay et la période multipliée par le nombre d'exécutions.
 * awaitTermination(30, TimeUnit.SECONDS) : 
 * shutdown() : pour demander la fermeture du service. Toutes les tâches en cours d'exécution se poursuivent jusqu'à leur fin mais plus aucune nouvelle tâche ne peut être ajoutée dans le service.
-* newScheduledThreadPool(POOL_SIZE) : elle renvoye une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
+* newScheduledThreadPool(POOL_SIZE) : elle renvoie une instance de type ScheduledExecutorService qui utilise un pool de threads dont la taille est fournie en paramètre.
  
 * awaitTermination(long timeout, TimeUnit unit) : Attendre l'achèvement des tâches après une demande d'arrêt ou la fin d'un délai ou l'interruption du thread courant selon ce qui se produira en premier.
 
@@ -147,7 +147,7 @@ Dans @BeforEach, on note  l’instanciation pour chaque algorithme de diffusion 
 
 * 1 capteur.
 * Canaux (canals), 5 canals.
-* Affichicheurs (faire du câblage, donc de la connexion pour afficher les données), on a instancié 5 afficheurs.
+* Afficheurs (faire du câblage, donc de la connexion pour afficher les données), on a instancié 5 afficheurs.
 * scheduledExecutorService (ES) pour faire l’injection de dépendance.
 
 Dans la partie @Test, on exécute les tests, on y trouve ce qui suit :
